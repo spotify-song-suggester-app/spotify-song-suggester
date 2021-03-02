@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Spotify Song Suggestor</title>
+        <link rel="stylesheet" href="https://unpkg.com/picnic"/>
+    </head>
+    <body>
+        <nav>
+            <a href="/" class="brand"><span>
+                Spotify
+            </span></a>
+            <input id="bmenub" type="checkbox" class="show">
+            <label for="bmenub" class="burger pseudo button">Menu</label>
+            <div class="menu">
+                <a href="/search" class="button normal">Search</a>
+                <a href="/about" class="button normal">About</a>
+              </div>
+        </nav>
+        <div class="flex demo" style="padding: 3em 1em;">
+            <h3>Already know what you're looking for?<br>
+                Search our records here!</h3>
+            <form action="/results" method="POST">
+                <label for="search">Search Strains:</label>
+                <input type="text" name="search">
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    </body>
+</html>
