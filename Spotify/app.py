@@ -16,27 +16,31 @@ def create_app():
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     DB.init_app(app)
 
+    SONGNAME = ''
+    ARTISTNAME = ''
+
     @app.route('/', methods = ['POST', 'GET'])
     def root():
         '''At end point '/' this is the home screen'''
-        conn, curs = create_table()
         proceed_flag = True
         form = MyForm(meta={'csrf': False})
+
         for fieldname, value in form.data.items():
             if not value:
                 proceed_flag = False
         if proceed_flag:
             SONGNAME = form.name.data
             ARTISTNAME = form.artist.data
-            print(search_songs(SONGNAME))
-            
-            print(execute_q(curs, search_songs(SONGNAME)))
+        
         return render_template('base.html', form=form)
     
     @app.route('/results', methods = ['POST', 'GET'])
     def results():
         '''Returns a prediction of 10 suggested songs'''
-
-        return 'results'
+        conn, curs = create_table()
+            
+        q = execute_q(curs, search_songs(SONGNAME))
+        
+        return str(q)
     
     return app
