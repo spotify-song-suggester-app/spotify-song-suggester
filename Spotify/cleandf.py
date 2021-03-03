@@ -1,4 +1,4 @@
-'''Austin Francis wrangle function and DB creation'''
+'''Austin Francis' wrangle function and DB creation'''
 
 
 import pandas as pd
@@ -7,8 +7,17 @@ import numpy as np
 import sqlite3
 
 
+def create_table():
+    '''Convert CSV to SQLite3 DB'''
+    conn, curs = sl_conn(sqlite_db='spotify_db.sqlite3')
+    df = wrangle()
+    df.to_sql('Songs', con=conn, if_exists='replace')
+    results = execute_q(curs=curs, query=total_rows)
+    print(results[:10])
+
+
 # Wrangle function from Austin to clean Spotify Song data
-def wrangle(filename='data.csv'):
+def wrangle(filename='../data.csv'):
     # read csv
     df = pd.read_csv(filename, parse_dates=['release_date'], index_col='id')
 
@@ -42,16 +51,8 @@ def execute_q(curs, query):
     results = curs.execute(query).fetchall()
     return results
 
+
 total_rows = '''
 SELECT COUNT(*)
 FROM Songs
 '''
-# Convert CSV to SQLite3 DB 
-
-
-if __name__ == '__main__':
-    conn, curs = sl_conn(sqlite_db='spotify_db.sqlite3')
-    df = wrangle()
-    df.to_sql('Songs', con=conn)
-    results = execute_q(curs=curs, query=total_rows)
-    print(results[:10])
