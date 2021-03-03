@@ -14,15 +14,15 @@ def create_table():
     df.to_sql('Songs', con=conn, if_exists='replace')
     #results = execute_q(curs=curs, query=total_rows)
 
+    return conn, curs
+
 
 # Wrangle function from Austin to clean Spotify Song data
-def wrangle(filename='D:\Lambda\Buildweek\spotify-song-suggester\Spotify\data.csv'):
+def wrangle():
+    #filename='D:\Lambda\Buildweek\spotify-song-suggester\Spotify\data.csv'
+    filename='data.csv'
     # read csv
     df = pd.read_csv(filename, parse_dates=['release_date'], index_col='id')
-
-    # pull artist names out of list
-    df['artists'] = [re.sub('^\[\'|\["', '', i) for i in df['artists']]
-    df['artists'] = [re.sub('\'\]|"\]$', '', i) for i in df['artists']]
 
     # convert duration from ms to min
     df['duration_min'] = df['duration_ms'] / 60000
@@ -51,8 +51,4 @@ def execute_q(curs, query):
     return results
 
 
-# Test sql command to see if SQLite3DB works
-total_rows = '''
-SELECT COUNT(*)
-FROM Songs
-'''
+
