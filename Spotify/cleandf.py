@@ -5,7 +5,7 @@ import pandas as pd
 import re
 import numpy as np
 import sqlite3
-
+from .models import DB
 
 # Wrangle function from Austin to clean Spotify Song data
 def wrangle(filename='data.csv'):
@@ -42,11 +42,15 @@ def execute_q(curs, query):
     results = curs.execute(query).fetchall()
     return results
 
+# Test sql command to see if SQLite3DB works
 total_rows = '''
 SELECT COUNT(*)
 FROM Songs
 '''
-# Convert CSV to SQLite3 DB 
+# Convert SQLite3DB into SQLAlchemy class in .models
+def add_song(song):
+    '''Takes song from sqlite3db and inserts into Song Class'''
+    for song in 
 
 
 if __name__ == '__main__':
