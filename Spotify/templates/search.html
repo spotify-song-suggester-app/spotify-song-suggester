@@ -7,7 +7,7 @@
     <body>
         <nav>
             <a href="/" class="brand"><span>
-                Spotify
+                Spotify Song Suggestor
             </span></a>
             <input id="bmenub" type="checkbox" class="show">
             <label for="bmenub" class="burger pseudo button">Menu</label>
@@ -17,10 +17,9 @@
               </div>
         </nav>
         <div class="flex demo" style="padding: 3em 1em;">
-            <h3>Already know what you're looking for?<br>
-                Search our records here!</h3>
+            <h3>Your one stop spot for 10 similar songs</h3>
             <form action="/results" method="POST">
-                <label for="search">Search Strains:</label>
+                <label for="search">Enter a song:</label>
                 <input type="text" name="search">
                 <input type="submit" value="Submit">
             </form>
