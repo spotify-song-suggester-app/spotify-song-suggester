@@ -3,6 +3,7 @@
 from flask import Flask, render_template, request
 from os import getenv
 from .models import DB
+from .cleandf import *
 
 
 def create_app():
@@ -16,10 +17,11 @@ def create_app():
     @app.route('/')
     def root():
         '''At end point '/' this is the home screen'''
+        create_table()
         return render_template('search.html')
     
-    #@app.route('/results')
-    #def results():
+    # @app.route('/results')
+    # def results():
         # TODO - take user input as string 
         # run prediction on input
         # return top 10 songs suggested

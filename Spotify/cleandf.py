@@ -51,27 +51,7 @@ def execute_q(curs, query):
     results = curs.execute(query).fetchall()
     return results
 
-<<<<<<< HEAD
-# Test sql command to see if SQLite3DB works
-=======
-
->>>>>>> c1e672db1ea8a1cfca816114eeef2a9ea90ee39b
 total_rows = '''
 SELECT COUNT(*)
 FROM Songs
 '''
-<<<<<<< HEAD
-# Convert SQLite3DB into SQLAlchemy class in .models
-def add_song(song):
-    '''Takes song from sqlite3db and inserts into Song Class'''
-    for song in 
-
-
-if __name__ == '__main__':
-    conn, curs = sl_conn(sqlite_db='spotify_db.sqlite3')
-    df = wrangle()
-    df.to_sql('Songs', con=conn)
-    results = execute_q(curs=curs, query=total_rows)
-    print(results[:10])
-=======
->>>>>>> c1e672db1ea8a1cfca816114eeef2a9ea90ee39b
