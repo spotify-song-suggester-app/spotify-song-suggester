@@ -3,16 +3,26 @@
     <head>
         <title>Spotify Song Suggestor</title>
         <link rel="stylesheet" href="https://unpkg.com/picnic"/>
+        <style>
+            body {
+                background-color: #191414;
+                color: #ffffff;
+            }
+            nav {
+                background-color: #191414;
+                color: #ffffff;
+            }
+        </style>
     </head>
     <body>
         <nav>
             <a href="/" class="brand"><span>
-                Spotify Song Suggestor
+                <img src="static/images/spotify-logo.png" alt="Spotify Logo" width="30" height="30">
+                Spotify Song Suggestor!
             </span></a>
             <input id="bmenub" type="checkbox" class="show">
             <label for="bmenub" class="burger pseudo button">Menu</label>
             <div class="menu">
-                <a href="/search" class="button normal">Search</a>
                 <a href="/about" class="button normal">About</a>
               </div>
         </nav>

@@ -2,8 +2,8 @@
 
 from flask_sqlalchemy import SQLAlchemy
 
-DB = SQLAlchemy()
 
+DB = SQLAlchemy()
 
 
 # Table using SQLAlchemy syntax 
@@ -28,3 +28,6 @@ class Song(DB.Model):
     tempo = DB.Column(DB.Float, nullable=False)
     valence = DB.Column(DB.Float, nullable=False)
     year = DB.Column(DB.Integer, nullable=False)
+
+    def __repr__(self):
+        return f'<Song: {self.name}>'
