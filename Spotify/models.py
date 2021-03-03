@@ -7,7 +7,7 @@ DB = SQLAlchemy()
 
 
 # Table using SQLAlchemy syntax 
-class Song(DB.Model):
+class Songs(DB.Model):
     '''Spotify Song DB'''
     id = DB.Column(DB.String, primary_key=True)
     acousticness = DB.Column(DB.Float, nullable=False)

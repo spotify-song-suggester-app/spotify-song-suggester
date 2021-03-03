@@ -12,12 +12,11 @@ def create_table():
     conn, curs = sl_conn(sqlite_db='spotify_db.sqlite3')
     df = wrangle()
     df.to_sql('Songs', con=conn, if_exists='replace')
-    results = execute_q(curs=curs, query=total_rows)
-    print(results[:10])
+    #results = execute_q(curs=curs, query=total_rows)
 
 
 # Wrangle function from Austin to clean Spotify Song data
-def wrangle(filename='../data.csv'):
+def wrangle(filename='D:\Lambda\Buildweek\spotify-song-suggester\Spotify\data.csv'):
     # read csv
     df = pd.read_csv(filename, parse_dates=['release_date'], index_col='id')
 
@@ -51,6 +50,8 @@ def execute_q(curs, query):
     results = curs.execute(query).fetchall()
     return results
 
+
+# Test sql command to see if SQLite3DB works
 total_rows = '''
 SELECT COUNT(*)
 FROM Songs
