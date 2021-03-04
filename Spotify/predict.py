@@ -3,11 +3,11 @@ from sklearn.preprocessing import MinMaxScaler
 
 
 # load pre-trained models
-# pca = pickle.load(open('../pca.pkl', 'rb'))
-# nn = pickle.load(open('../nearest_neighbors.pkl', 'rb'))
+pca = pickle.load(open('pca.pkl', 'rb'))
+nn = pickle.load(open('nearest_neighbors.pkl', 'rb'))
 
-pca = pickle.load(open('../pca.pkl', 'rb'))
-nn = pickle.load(open('../nearest_neighbors.pkl', 'rb'))
+#pca = pickle.load(open('../pca.pkl', 'rb'))
+#nn = pickle.load(open('../nearest_neighbors.pkl', 'rb'))
 
 
 def preprocess(X):

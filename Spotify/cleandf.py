@@ -6,6 +6,13 @@ import re
 import numpy as np
 import sqlite3
 from .models import DB
+import psycopg2
+from .queries import *
+
+DBNAME = 'qrcbzxhn'
+USER = 'qrcbzxhn'
+PASSWORD = 'JTbDJaM6Pr9hSynJ1ZgZwNpWEf04DS8Y'
+HOST = 'isilo.db.elephantsql.com'
 
 def create_table():
     '''Convert CSV to SQLite3 DB'''
@@ -19,11 +26,13 @@ def create_table():
 
 # Wrangle function from Austin to clean Spotify Song data
 def wrangle():
-    # filename='D:\Lambda\Buildweek\spotify-song-suggester\Spotify\data.csv'
-    filename='data.csv'
+    filename='D:\Lambda\Buildweek\spotify-song-suggester\Spotify\data.csv'
+    # filename='data.csv'
     # read csv
     df = pd.read_csv(filename, parse_dates=['release_date'], index_col='id')
 
+    # Replace brackets in artists column to avoid PGSql conflicts
+    df['artists'] = df['artists'].str.replace('[','').replace(']','')
     # convert duration from ms to min
     df['duration_min'] = df['duration_ms'] / 60000
     df['duration_min'] = df['duration_min'].round(2)
@@ -47,10 +56,26 @@ def sl_conn(sqlite_db):
     return conn, curs
 
 
-def execute_q(curs, query):
+def execute_q(curs, query, reading=True):
     '''execute query with connection'''
-    results = curs.execute(query).fetchall()
-    return results
+    curs.execute(query)
+    if reading:
+        results = curs.fetchall()
+        return results
+    return 'This statment worked'
 
+def pg_conn(dbname, user, password, host):
+    '''returns pg connection'''
+    pg_conn = psycopg2.connect(dbname=DBNAME, user=USER,
+                                password=PASSWORD, host=HOST)
+    return pg_conn
 
+def create_cursor(conn):
+    '''returns cursor'''
+    curs = conn.cursor()
+    return curs
 
+def add_songs(pg_curs, song_list):
+    '''Insert song_list into PGSQL DB table'''
+    for song in song_list:
+        pg_curs.execute(INSERT_PG.format(song))
