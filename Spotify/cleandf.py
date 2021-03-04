@@ -19,8 +19,8 @@ def create_table():
 
 # Wrangle function from Austin to clean Spotify Song data
 def wrangle():
-    filename='D:\Lambda\Buildweek\spotify-song-suggester\Spotify\data.csv'
-    #filename='data.csv'
+    # filename='D:\Lambda\Buildweek\spotify-song-suggester\Spotify\data.csv'
+    filename='data.csv'
     # read csv
     df = pd.read_csv(filename, parse_dates=['release_date'], index_col='id')
 

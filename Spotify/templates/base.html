@@ -12,7 +12,7 @@
                 background-color: #191414;
                 color: #ffffff;
             }
-            div.container {
+            div.input {
                 color: #1DB954;
             }
         </style>
@@ -31,11 +31,13 @@
         </nav>
         <div class="flex demo" style="padding: 3em 1em;">
             <h3>Your one stop shop for similar songs!</h3>
-            <form action="/results" method="POST">
-                <label for="search">Search Songs:</label>
-                <input type="text" name="search">
-                <input type="submit" value="Submit">
-            </form>
+            <div class='input'>
+                <form action="/results" method="POST">
+                    <label for="search">Search Songs:</label>
+                    <input type="text" name="search">
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
         </div>
     </body>
 </html>

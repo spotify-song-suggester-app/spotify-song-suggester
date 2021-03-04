@@ -3,8 +3,11 @@ from sklearn.preprocessing import MinMaxScaler
 
 
 # load pre-trained models
-pca = pickle.load(open('pca.pkl', 'rb'))
-nn = pickle.load(open('nearest_neighbors.pkl', 'rb'))
+# pca = pickle.load(open('../pca.pkl', 'rb'))
+# nn = pickle.load(open('../nearest_neighbors.pkl', 'rb'))
+
+pca = pickle.load(open('../pca.pkl', 'rb'))
+nn = pickle.load(open('../nearest_neighbors.pkl', 'rb'))
 
 
 def preprocess(X):
@@ -34,7 +37,7 @@ def PCA(X_scaled):
         X_reduced (object)
     '''
 
-    X_reduced = pca.fit_transform(X_scaled)
+    X_reduced = pca.transform(X_scaled)
 
     return X_reduced
 
@@ -49,6 +52,6 @@ def predict(vect):
         indices (list) of top 10 similar songs
     '''
 
-    distance, indices = nn.kneighbors([vect])
+    distance, indices = nn.kneighbors(vect)
 
     return indices[0]
