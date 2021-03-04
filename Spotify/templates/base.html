@@ -30,18 +30,11 @@
               </div>
         </nav>
         <div class="flex demo" style="padding: 3em 1em;">
-            <h3>Your one stop spot for 10 similar songs</h3>
-            <form action= '/results' method='POST'>
-                <div class='container'>
-                    {{form.hidden_tag()}}
-                    <div class='row mb-3'>
-                        {{form.name.label(class='col-form-label-lg')}}{{form.name}}
-                    </div>
-                    <div class='row mb-3'>
-                        {{form.artist.label(class='col-form-label-lg')}}{{form.artist}}
-                    </div>
-                    {{form.submit}}
-            </div>
+            <h3>Your one stop shop for similar songs!</h3>
+            <form action="/results" method="POST">
+                <label for="search">Search Songs:</label>
+                <input type="text" name="search">
+                <input type="submit" value="Submit">
             </form>
         </div>
     </body>

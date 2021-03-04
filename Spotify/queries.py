@@ -1,7 +1,9 @@
 def search_songs(SONGNAME):
+    print(SONGNAME)
     return f'''
-        SELECT name FROM Songs
-        WHERE name == \'{SONGNAME}\' 
+    SELECT acousticness,danceability,duration_min,energy,explicit,instrumentalness,key,liveness,loudness,mode,popularity,speechiness,tempo,valence,year  
+    FROM Songs
+    WHERE name ==  "{SONGNAME}"
     '''
 
 def search_artists(ARTISTNAME):

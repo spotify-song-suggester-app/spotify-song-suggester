@@ -7,6 +7,8 @@ from .cleandf import *
 from .forms import MyForm
 from .queries import *
 
+
+
 def create_app():
     '''Create flask app'''
     app = Flask(__name__)
@@ -23,24 +25,35 @@ def create_app():
     def root():
         '''At end point '/' this is the home screen'''
         proceed_flag = True
-        form = MyForm(meta={'csrf': False})
+        form = MyForm(csrf_enabled=False)
 
-        for fieldname, value in form.data.items():
-            if not value:
-                proceed_flag = False
-        if proceed_flag:
-            SONGNAME = form.name.data
-            ARTISTNAME = form.artist.data
+        #for fieldname, value in form.data.items():
+        #    print(fieldname, value)
+            # if value == None:
+            #     proceed_flag = False
+        # if proceed_flag:
+        #     songname = form.name.data
+        #     artistname = form.artist.data
+        #     print(songname)
+        #     print(artistname)
+        #     conn, curs = create_table()
+        #     print(execute_q(curs, search_songs(songname)))
         
-        return render_template('base.html', form=form)
+            #return render_template('base.html', form=form)
+        #else:
+        return render_template('base.html')
     
     @app.route('/results', methods = ['POST', 'GET'])
     def results():
         '''Returns a prediction of 10 suggested songs'''
         conn, curs = create_table()
-            
-        q = execute_q(curs, search_songs(SONGNAME))
+        if request.method == 'POST':
+            songname = request.form.get('search')
+            print(songname)
+            #artistname = form.artist.data
+            #print(artistname)
+            print(execute_q(curs, search_songs(songname.lower())))
         
-        return str(q)
+        return render_template('base.html')
     
     return app
