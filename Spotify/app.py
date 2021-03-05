@@ -25,7 +25,7 @@ def create_app():
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     DB.init_app(app)
 
-    @app.route('/', methods = ['POST', 'GET'])
+    @app.route('/')
     def root():
         '''At end point '/' this is the home screen'''
         # Creates SQLite3 DB, and creates conn/curs for SQLite3
@@ -39,7 +39,7 @@ def create_app():
         #pg_conn.commit()
         return render_template('base.html')
 
-    @app.route('/results', methods = ['POST', 'GET'])
+    @app.route('/results', methods=['POST'])
     def results():
         '''Returns a prediction of 10 suggested songs'''
 
