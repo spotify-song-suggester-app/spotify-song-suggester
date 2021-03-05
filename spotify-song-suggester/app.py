@@ -6,7 +6,6 @@ from flask import Flask, render_template, request, redirect
 from os import getenv
 from .models import *
 from .cleandf import *
-from .forms import MyForm
 from .queries import *
 from .predict import *
 
