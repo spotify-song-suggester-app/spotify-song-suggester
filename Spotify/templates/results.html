@@ -7,12 +7,20 @@
         .grid-container {
           display: grid;
         }
+        body {
+                background-color: #191414;
+                color: #ffffff;
+        }
+        nav {
+            background-color: #191414;
+            color: #ffffff;
+        }
         </style>
     </head>
     <body>
         <nav>
             <a href="/" class="brand"><span>
-                <img src="static/images/wspotify-logo.png" alt="Spotify Logo" width="30" height="30">
+                <img src="static/images/spotify-logo.png" alt="Spotify Logo" width="30" height="30">
                 Spotify Song Suggestor
             </span></a>
             <input id="bmenub" type="checkbox" class="show">
@@ -24,17 +32,13 @@
         </nav>
           <div style="padding: 3em 1em;">
             <h3>Results:</h3>
-              {% if search %}
-                  <h3>Search Results for '{{ search }}':</h3>
                   <div class="box" style="width:50%; margin:auto; background-color:rgba(240, 240, 240, 0.5); border-style:solid;">
-                  {% for value in values %}
-                      <p>{{ value }}</p>
+                  {% for row in results %}
+                    {% for i in row %}
+                      <p>{{ i }}</p>
+                    {% endfor %}
                   {% endfor %}
                   </div>
-              {% endif %}
-              {% if error %}
-                  <p>{{ error }}</p>
-              {% endif %}
           </div>
         </div>
     </body>

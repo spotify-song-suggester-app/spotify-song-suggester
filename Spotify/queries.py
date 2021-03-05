@@ -16,7 +16,7 @@ def search_artists(ARTISTNAME):
 all_rows = '''
     SELECT *
     FROM Songs
-    '''
+'''
 
 CREATE_PG_TABLE = '''
 CREATE TABLE IF NOT EXISTS Songs (
@@ -63,3 +63,13 @@ INSERT INTO Songs(
     year
     ) VALUES {};
 '''
+
+def search_rows(row_num):
+    row_num -= 1
+    return f'''
+    SELECT
+        *
+    FROM
+        Songs
+    LIMIT 1 OFFSET {row_num};
+    '''

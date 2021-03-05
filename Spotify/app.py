@@ -30,12 +30,12 @@ def create_app():
         '''At end point '/' this is the home screen'''
         # Creates SQLite3 DB, and creates conn/curs for SQLite3
         conn, curs = create_table()
-        print('SQL table created')
+        # print('SQL table created')
         # Pulls all rows from sqlite db
-        song_list = execute_q(curs, all_rows)
-        print('song_list creation worked')
+        # song_list = execute_q(curs, all_rows)
+        # print('song_list creation worked')
         # Add_songs(pg_curs, song_list)
-        add_songs_SQLA(song_list)
+        # add_songs_SQLA(song_list)
         #pg_conn.commit()
         return render_template('base.html')
 
@@ -47,9 +47,7 @@ def create_app():
 
         if request.method == 'POST':
             songname = request.form.get('search')
-            print(songname)
-            #artistname = form.artist.data
-            #print(artistname)
+        
             query = execute_q(curs, search_songs(songname.lower()))
             query = np.array(query)
 
@@ -61,7 +59,14 @@ def create_app():
 
             songs = predict(X_reduced)
 
-        return str(songs)
+            results = []
+
+            for i in songs:
+                result = execute_q(curs, search_rows(i))
+                results.append(result)
+
+
+        return render_template('results.html', results=results)
 
     
     return app
