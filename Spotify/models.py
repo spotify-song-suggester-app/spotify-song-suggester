@@ -11,7 +11,7 @@ class Songs(DB.Model):
     '''Spotify Song DB'''
     id = DB.Column(DB.String, primary_key=True)
     acousticness = DB.Column(DB.Float, nullable=False)
-    artist = DB.Column(DB.String, nullable=False)
+    artists = DB.Column(DB.String, nullable=False)
     danceability = DB.Column(DB.Float, nullable=False)
     duration_min = DB.Column(DB.Float, nullable=False)
     energy = DB.Column(DB.Float, nullable=False)
@@ -23,7 +23,6 @@ class Songs(DB.Model):
     mode = DB.Column(DB.Integer, nullable=False)
     name = DB.Column(DB.String, nullable=False)
     popularity = DB.Column(DB.Integer, nullable=False)
-    release_date = DB.Column(DB.DateTime, nullable=False)
     speechiness = DB.Column(DB.Float, nullable=False)
     tempo = DB.Column(DB.Float, nullable=False)
     valence = DB.Column(DB.Float, nullable=False)

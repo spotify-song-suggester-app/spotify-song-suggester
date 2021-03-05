@@ -5,14 +5,9 @@ import pandas as pd
 import re
 import numpy as np
 import sqlite3
-from .models import DB
-import psycopg2
+from .models import *
 from .queries import *
 
-DBNAME = 'qrcbzxhn'
-USER = 'qrcbzxhn'
-PASSWORD = 'JTbDJaM6Pr9hSynJ1ZgZwNpWEf04DS8Y'
-HOST = 'isilo.db.elephantsql.com'
 
 def create_table():
     '''Convert CSV to SQLite3 DB'''
@@ -24,21 +19,27 @@ def create_table():
     return conn, curs
 
 
-# Wrangle function from Austin to clean Spotify Song data
+
 def wrangle():
+    '''Wrangle function from Austin to clean Spotify Song data'''
     filename='D:\Lambda\Buildweek\spotify-song-suggester\Spotify\data.csv'
     # filename='data.csv'
     # read csv
     df = pd.read_csv(filename, parse_dates=['release_date'], index_col='id')
 
     # Replace brackets in artists column to avoid PGSql conflicts
-    df['artists'] = df['artists'].str.replace('[','').replace(']','')
+    df['artists'] = df['artists'].str.replace('[','')
+    df['artists'] = df['artists'].str.replace(']','')
+    df['artists'] = df['artists'].str.replace("'", '')
+
     # convert duration from ms to min
     df['duration_min'] = df['duration_ms'] / 60000
     df['duration_min'] = df['duration_min'].round(2)
 
     # lower-case song name
     df['name'] = df['name'].str.lower()
+    # strip ' from song name 
+    df['name'] = df['name'].str.replace("'", "")
     # drop duplicate values
     df.drop_duplicates(inplace=True)
 
@@ -77,5 +78,31 @@ def create_cursor(conn):
 
 def add_songs(pg_curs, song_list):
     '''Insert song_list into PGSQL DB table'''
+
     for song in song_list:
         pg_curs.execute(INSERT_PG.format(song))
+    
+def add_songs_SQLA(song_list):
+    '''Add all rows from sqlite db into SQLAlchemy Songs class'''
+    DB.create_all()
+    for song in song_list:
+        song = Songs(id = song[0],
+                    acousticness = song[1],
+                    artists = song[2],
+                    danceability = song[3],
+                    energy = song[4],
+                    explicit = song[5],
+                    instrumentalness = song[6],
+                    key = song[7],
+                    liveness = song[8],
+                    loudness = song[9],
+                    mode = song[10],
+                    name = song[11],
+                    popularity = song[12],
+                    speechiness = song[13],
+                    tempo = song[14],
+                    valence = song[15],
+                    year = song[16],
+                    duration_min = song[17])
+        DB.session.add(song)
+    DB.session.commit()
